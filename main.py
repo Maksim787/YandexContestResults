@@ -5,9 +5,7 @@ import get_info
 parse_files.main()
 merge_files.main()
 df = get_info.main()
-for col in df.columns:
-    if max(df[col]) == 0:
-        del df[col]
+
 print(df)
 print("-" * 150)
 
