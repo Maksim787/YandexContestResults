@@ -1,7 +1,7 @@
 from os import path
 
 
-def add_file(name):
+def add_file(name, name_to_score):
     is_kr = int(name[0:2] == "KR")
     number_start = name.index("_out_") + 5
     number_end = name.index("/", number_start)
@@ -12,11 +12,11 @@ def add_file(name):
         for i in range(len(lines)):
             name, score = lines[i].split(",")
             if name not in name_to_score:
-                name_to_score[name] = [0] * len_info
+                name_to_score[name] = [0] * (8 + 4)
             name_to_score[name][index] = score
 
 
-def write_info(file_name):
+def write_info(file_name, name_to_score):
     with open(file_name + ".csv", "w", encoding="utf-8") as file:
         print("name",
               ",".join(["DZ_" + str(i) for i in range(1, 9)]),
@@ -26,18 +26,22 @@ def write_info(file_name):
             print(name, *data, sep=",", file=file)
 
 
-len_info = 8 + 4
-name_to_score = {}
-for i in range(1, 9):
-    for page in range(1, 30):
-        name = "DZ_out/DZ_out_" + str(i) + "/" + str(page)
-        if path.exists(name + ".txt"):
-            add_file(name)
+def main():
+    name_to_score = {}
+    for i in range(1, 9):
+        for page in range(1, 30):
+            name = "DZ_out/DZ_out_" + str(i) + "/" + str(page)
+            if path.exists(name + ".txt"):
+                add_file(name, name_to_score)
 
-for i in range(1, 5):
-    for page in range(1, 30):
-        name = "KR_out/KR_out_" + str(i) + "/" + str(page)
-        if path.exists(name + ".txt"):
-            add_file(name)
+    for i in range(1, 5):
+        for page in range(1, 30):
+            name = "KR_out/KR_out_" + str(i) + "/" + str(page)
+            if path.exists(name + ".txt"):
+                add_file(name, name_to_score)
 
-write_info("all")
+    write_info("all", name_to_score)
+
+
+if __name__ == "__main__":
+    main()

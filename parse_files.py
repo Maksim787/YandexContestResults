@@ -32,20 +32,25 @@ def parse(input_file_name, output_file_name):
             print(name, score, file=file, sep=',')
 
 
-for i in range(1, 9):
-    for page in range(1, 30):
-        name_input = "DZ/DZ_" + str(i) + "/" + str(page)
-        name_output = "DZ_out/DZ_out_" + str(i)
-        if os.path.exists(name_input + ".txt"):
-            if not os.path.exists(name_output):
-                os.makedirs(name_output)
-            parse(name_input, name_output + "/" + str(page))
+def main():
+    for i in range(1, 9):
+        for page in range(1, 30):
+            name_input = "DZ/DZ_" + str(i) + "/" + str(page)
+            name_output = "DZ_out/DZ_out_" + str(i)
+            if os.path.exists(name_input + ".txt"):
+                if not os.path.exists(name_output):
+                    os.makedirs(name_output)
+                parse(name_input, name_output + "/" + str(page))
 
-for i in range(1, 5):
-    for page in range(1, 30):
-        name_input = "KR/KR_" + str(i) + "/" + str(page)
-        name_output = "KR_out/KR_out_" + str(i)
-        if os.path.exists(name_input + ".txt"):
-            if not os.path.exists(name_output):
-                os.makedirs(name_output)
-            parse(name_input, name_output + "/" + str(page))
+    for i in range(1, 5):
+        for page in range(1, 30):
+            name_input = "KR/KR_" + str(i) + "/" + str(page)
+            name_output = "KR_out/KR_out_" + str(i)
+            if os.path.exists(name_input + ".txt"):
+                if not os.path.exists(name_output):
+                    os.makedirs(name_output)
+                parse(name_input, name_output + "/" + str(page))
+
+
+if __name__ == "__main__":
+    main()
