@@ -8,8 +8,9 @@ def main():
     pd.set_option('display.max_colwidth', None)
 
     df = pd.read_csv("all.csv")
-    df["Total"] = 0.05 * sum([df["DZ_" + str(i)] for i in range(1, 9)]) / 10 + 0.1 * sum(
-        [df["KR_" + str(i)] for i in range(1, 5)]) / 5
+    df["DZ_total"] = 0.05 * sum([df["DZ_" + str(i)] for i in range(1, 9)]) / 10
+    df["KR_total"] = 0.1 * sum([df["KR_" + str(i)] for i in range(1, 5)]) / 5
+    df["Total"] = df["DZ_total"] + df["KR_total"]
     df["Mark"] = df["Total"] * 10 / (0.05 * 10 * 8 + 0.1 * 10 * 4)
 
     df = df.sort_values(by=["Total"], ascending=False)
