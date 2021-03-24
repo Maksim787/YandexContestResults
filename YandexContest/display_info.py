@@ -9,5 +9,5 @@ df["Total"] = 0.05 * sum([df["DZ_" + str(i)] for i in range(1, 9)]) / 10 + 0.1 *
 df["Percent"] = df["Total"] / (0.05 * 10 * 8 + 0.1 * 10 * 4)
 
 df = df.sort_values(by=["Total"], ascending=False)
-df["Place"] = list(range(1, df.shape[0] + 1))
+df.index = pd.Series(range(1, df.shape[0] + 1))
 print(df)
