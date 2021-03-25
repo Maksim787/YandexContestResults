@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def main():
+def main(save=True):
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
     pd.set_option('display.width', None)
@@ -24,7 +24,8 @@ def main():
     for col in df.columns:
         if max(df[col]) == 0:
             del df[col]
-    df.to_csv("results.csv")
+    if save:
+        df.to_csv("results.csv")
     return df
 
 
